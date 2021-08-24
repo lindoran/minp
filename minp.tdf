@@ -1,0 +1,4 @@
+{this is type defs for Minp.inc and its table files }
+
+mapType = array[1..19] of string[4];
+

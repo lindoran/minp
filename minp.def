@@ -1,0 +1,10 @@
+(* these are the external defs for minp *)
+
+external function inkey : integer;
+external function extinkey : integer;
+external function GetJoy: integer;
+
+(* tbl file procedure *)
+
+external procedure kmkptrs;
+

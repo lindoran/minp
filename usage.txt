@@ -1,0 +1,110 @@
+MINP
+A custom input driver for Pascal/MT+ for the MBC line of computers.
+
+By D. Collins (C)2021
+
+ 
+
+Here is a small module for Pascal/MT+ which makes using the serial input 
+directly on a MBC style computer very simple.  It uses the port array which is 
+very fast to grab data from the terminal directly, and bypases much of CPM by 
+useing a very low level operation to do so.  This means if you are trying to 
+grab characters at speed for instance if you are writing a game, you do not 
+have to write custom BIOS code to do so.  There is a table which must be linked
+along with this module in order to provide access to the extended keycodes -- 
+it's not required to use the module if you are trying to keep your code small. 
+however the table is very small, only a few (96) bytes - plus the code to 
+manage it which is only a few lines..
+
+Files List:
+
+.erl :  a V20-MBC 8080 Relocatable file suitable for linking, may very well 
+work on the MBC2 but it's not been tested.
+
+.R86 : a V20-MBC 8086 Relocatable file suitable for linking. Depending on your
+ memory map this may or may not work on other platforms, most likely will not 
+ work under dos.
+
+.def : a define file (minp.def) must be added to the top of the source code 
+block after your declaration block using {$I minp.def}, added in code to 
+declare all of the procedures and functions from the module.
+
+.tdf : an internal type declaration file that adds code to declare common
+types.
+
+.vdf : an internal variable declaration file that adds code to declare common
+variable types.
+
+.pas : source file written in pascal.
+
+Usage:
+
+Simply link minp.erl/.r86, and a table file (ktbl8080.erl or ktbl8086.r86) to 
+your main source code after including the .def file after your declaration 
+block (minp.def).  If you do not include the table module you will get a 
+warning about a missing symbol if you do not use appropriate switches to clear
+unused symbols.  if the extended keycodes are needed you will have to define 
+the table pointers in memory before using them by calling the kmkptrs 
+procedure.
+
+Symbol Explanation:
+
+Inkey <function :integer >   :  return the ASCII value of key pressed, else 
+                                return 0.
+
+This returns the value of the key currently being pressed.  I have tested it 
+alongside bios & bdos related commands, and it appears to function properly.
+This doesn’t require a separate table file to function.
+
+
+Extinkey <function : integer> : return the ASCII Value or a value 1-16 
+                                according to the following list.
+
+F1,RT,F2,LF,F3,F4,F5,DN,F6,F7,F8,F9,HOM,INS,DEL,UP,END,PGUP,PGDN
+
+This will return the key currently being pressed, and zero if no key -or-
+zero if some other escape sequence is returning from the terminal not on the 
+list. If it is on the list it will return a value 1-16 (left to right on the 
+above list)  You must call kmkptrs before using this command to declare the
+lookup table in memory. It is slightly lower as it scans the whole table until
+it finds the key that was sent. It does this by pulling 4 bytes from the 
+terminal (if it detects an escape command), and then compares that sequence to
+an array until it finds a match. The returned values for the directional keys
+are the same values returned off of the custom joystick board which is part
+of a different project.
+
+
+Getjoy <function :integer> : returns the value of port A on the bus expander.
+
+This simply returns the value of port A on the bus expander. Included is a 
+simple schematic and a gerber of a very out-dated joystick interface.  
+The Gerber is untested, and I have a much better fully working interface 
+that will get released once I have completed porting the sound/time modules. 
+
+
+Kmkptrs <procedure> : sets the location of the extended keymap in memory.
+
+This defines the table for the extended keymap, please call this before using 
+extinkey.
+
+MIT License
+
+Copyright (c) 2021 Dave Collins
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

@@ -1,0 +1,4 @@
+{this is var defs for minp and its tables}
+
+EXTMAPPTR : external ^maptype;
+

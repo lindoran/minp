@@ -1,0 +1,18 @@
+.erl  -- a V20-MBC 8080 Relocatable file sutable for linking, may very well 
+         work on the MBC2 but it's not been tested.
+		 
+.R86  -- a V20-MBC 8086 Relocatable file sutible for linking. depending
+		 on your mememory map this may or may not work on other X86 
+		 platforms, most likely will not work under dos.
+		 
+.def  -- a define file (minp.def) must be added to top of source code,
+		 block after your declaration block useing {$I minp.def}, adds 
+		 in code to declare all of the procedures and funcitons from the
+		 module.
+		 
+.tdf  -- an internal type declaration file that adds code to declare common 
+		 types.
+.vdf  -- an internal variable declaration file that adds code to declare		
+		 common variable types.
+		 
+.pas  -- source file written in pascal.
