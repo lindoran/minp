@@ -3,6 +3,23 @@ module minp;
  it also includes support for my GPIO Games interface which will be 
  documented elsewhare in the repo.
  
+  {     MBC Expansion Port      
+       GPIO GAME ADDAPTER CONN.  
+     UP = U  DOWN = D lEFT = l   
+        RIGHT = R  FIRE = F      
+	555 TRIGGER = TRG (HIGH TRIGGERS)	
+	555 EXPIRED = EXP (LOW = EXPIRED
+	                   HIGH = RUNNING) 
+    PASSIVE BUZZER = SND
+	
+        VCC   F U D L R   GND       
+        |     | | | | |   |			  
+       +5 1 2 3 4 5 6 7 8 GND    
+        * * * * * * * * * * GPIO PORT A  
+        * * * * * * * * * * GPIO PORT B  
+          |           | |      
+    	 EXP        TRG SND            }
+ 
  MIT License
 
 Copyright (c) 2021 Dave Collins
