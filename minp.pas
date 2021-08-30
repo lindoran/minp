@@ -3,7 +3,7 @@ module minp;
  it also includes support for my GPIO Games interface which will be 
  documented elsewhare in the repo.
  
-  {     MBC Expansion Port      
+        MBC Expansion Port      
        GPIO GAME ADDAPTER CONN.  
      UP = U  DOWN = D lEFT = l   
         RIGHT = R  FIRE = F      
@@ -18,7 +18,7 @@ module minp;
         * * * * * * * * * * GPIO PORT A  
         * * * * * * * * * * GPIO PORT B  
           |           | |      
-    	 EXP        TRG SND            }
+    	 EXP        TRG SND            
  
  MIT License
 
