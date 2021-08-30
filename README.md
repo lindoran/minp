@@ -13,7 +13,7 @@
 <p><strong>.tdf </strong><span style="font-weight: 400;">: an internal type declaration file that adds code to declare common types.</span></p>
 <p><strong>.vdf</strong><span style="font-weight: 400;"> : an internal variable declaration file that adds code to declare common variable types.</span></p>
 <p><strong>.pas</strong><span style="font-weight: 400;"> : source file written in pascal.</span></p>
-<pre>&nbsp;</pre>
+
 <h4><strong>Usage:</strong></h4>
 <p><span style="font-weight: 400;">Simply link minp.erl/.r86, and a table file (ktbl8080.erl or ktbl8086.r86) to your main source code after including the .def file after your declaration block (minp.def).&nbsp; If you do not include the table module you will get a warning about a missing symbol if you do not use appropriate switches to clear unused symbols.&nbsp; if the extended keycodes are needed you will have to define the table pointers in memory before using them by calling the kmkptrs procedure.</span></p>
 <h4><strong>Symbol Explanation:</strong></h4>
