@@ -2,8 +2,10 @@
 <h4><strong>A custom input driver for Pascal/MT+ for the MBC line of computers.</strong></h4>
 <p><span style="font-weight: 400;">By D. Collins (C)2021</span></p>
 <p><span style="font-weight: 400;">&nbsp;</span></p>
-<p><span style="font-weight: 400;">Here is a small module for Pascal/MT+ which makes using the serial input directly on a MBC style computer very simple.&nbsp; It uses the port array which is very fast to grab data from the terminal directly, and bypases much of CPM by useing a very low level operation to do so.&nbsp; This means if you are trying to grab characters at speed for instance if you are writing a game, you do not have to write custom BIOS code to do so.&nbsp; There is a table which must be linked along with this module in order to provide access to the extended keycodes -- it's not required to use the module if you are trying to keep your code small. however the table is very small, only a few (96) bytes - plus the code to manage it which is only a few lines..</span></p>
-<h4>&nbsp;</h4>
+<p><span style="font-weight: 400;">Here is a small module for Pascal/MT+ which makes using the serial input directly on a MBC style computer very simple.&nbsp; It uses the port array which is very fast to grab data from the terminal directly, and bypases much of CPM by useing a very low level operation to do so.&nbsp; This means if you are trying to grab characters at speed for instance if you are writing a game, you do not have to write custom BIOS code to do so.&nbsp; There is a table which must be linked along with this module in order to provide access to the extended keycodes -- it's not required to use the module if you are trying to keep your code small. however the table is very small, only a few (96) bytes - plus the code to manage it which is only a few lines.&nbsp; <br /></span></p>
+<p><em><span style="font-weight: 400;">UPDATE *** Added Documentation for Hooking up my GPIO Games Adapter ***</span></em></p>
+<h4><strong>GPIO Games Adapter Connections:</strong></h4>
+<pre>MBC Expansion Port <br />GPIO GAME ADDAPTER CONN. <br />UP = U DOWN = D LEFT = l <br />RIGHT = R FIRE = F <br />555 TRIGGER = TRG (HIGH TRIGGERS) <br />555 EXPIRED = EXP (LOW = EXPIRED<br />HIGH = RUNNING) <br />PASSIVE BUZZER = SND<br /><br />VCC    F U D L R   GND <br /> |     | | | | |   | <br />+5 1 2 3 4 5 6 7 8 GND <br /> * * * * * * * * * * GPIO PORT A <br /> * * * * * * * * * * GPIO PORT B <br />   |           | | <br /> EXP         TRG SND </pre>
 <h4><strong>Files List:</strong></h4>
 <p><strong>.erl</strong><span style="font-weight: 400;"> :&nbsp; a V20-MBC 8080 Relocatable file suitable for linking, may very well work on the MBC2 but it's not been tested.</span></p>
 <p><strong>.R86</strong><span style="font-weight: 400;"> : a V20-MBC 8086 Relocatable file suitable for linking. Depending on your memory map this may or may not work on other platforms, most likely will not work under dos.</span></p>
@@ -11,7 +13,7 @@
 <p><strong>.tdf </strong><span style="font-weight: 400;">: an internal type declaration file that adds code to declare common types.</span></p>
 <p><strong>.vdf</strong><span style="font-weight: 400;"> : an internal variable declaration file that adds code to declare common variable types.</span></p>
 <p><strong>.pas</strong><span style="font-weight: 400;"> : source file written in pascal.</span></p>
-<p>&nbsp;</p>
+<pre>&nbsp;</pre>
 <h4><strong>Usage:</strong></h4>
 <p><span style="font-weight: 400;">Simply link minp.erl/.r86, and a table file (ktbl8080.erl or ktbl8086.r86) to your main source code after including the .def file after your declaration block (minp.def).&nbsp; If you do not include the table module you will get a warning about a missing symbol if you do not use appropriate switches to clear unused symbols.&nbsp; if the extended keycodes are needed you will have to define the table pointers in memory before using them by calling the kmkptrs procedure.</span></p>
 <h4><strong>Symbol Explanation:</strong></h4>
@@ -29,25 +31,4 @@
 <p><span style="font-weight: 400;">This defines the table for the extended keymap, please call this before using </span><em><span style="font-weight: 400;">extinkey</span></em><span style="font-weight: 400;">.</span></p>
 <p><span style="font-weight: 400;">&nbsp;</span></p>
 <p><br /><br /></p>
-
-MIT License
-
-Copyright (c) 2021 Dave Collins
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+<p>MIT License Copyright (c) 2021 Dave Collins Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
